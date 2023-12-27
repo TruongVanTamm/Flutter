@@ -2,7 +2,6 @@ import 'package:megacy_app/constants/constants.dart';
 import 'package:megacy_app/constants/lists.dart';
 import 'package:megacy_app/views/auth_screen/register_screen.dart';
 import 'package:megacy_app/widgets_common/Input/auth_text_field.dart';
-import 'package:megacy_app/widgets_common/applogo_widget.dart';
 import 'package:megacy_app/widgets_common/commom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -30,12 +29,6 @@ class LoginScreen extends StatelessWidget {
                         icon: const Icon(Icons.keyboard_arrow_left_outlined),
                         onPressed: () {},
                       ),
-                      Container(
-                          padding: const EdgeInsets.only(right: 26),
-                          child: applogoWidget(logo: icAppLogoBlack)
-                              .box
-                              .size(83, 43)
-                              .make()),
                       10.widthBox,
                     ],
                   ),
@@ -46,7 +39,6 @@ class LoginScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        applogoWidget(logo: icAppLogoBlack),
                         authTextField(
                             icon: const Icon(Icons.person_outline),
                             hint: 'Email / Số điện thoại / Tên đăng nhập'),

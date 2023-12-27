@@ -1,17 +1,19 @@
-class CollectionCardModel {
+class RankingItem {
   final String id;
   final String name;
   final String imageUrl;
+  final double price;
   final double floorPrice;
-  final double totalVolume;
+  final double fluctuation;
   final String chain;
 
-  CollectionCardModel({
+  RankingItem({
     required this.id,
     required this.name,
     required this.imageUrl,
+    required this.price,
     required this.floorPrice,
-    required this.totalVolume,
+    required this.fluctuation,
     required this.chain,
   });
 }

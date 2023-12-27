@@ -2,7 +2,7 @@ import 'package:megacy_app/constants/constants.dart';
 import 'package:megacy_app/constants/lists.dart';
 import 'package:megacy_app/views/shop_screen/product_detail_sceen.dart';
 import 'package:megacy_app/widgets_common/filter_tag_widget.dart';
-import 'package:megacy_app/widgets_common/product_card_widget.dart';
+import 'package:megacy_app/widgets_common/collection_card_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -86,18 +86,18 @@ class _ShopScreenState extends State<ShopScreen> {
                                     .make(),
                                 10.heightBox,
                                 Wrap(
-                                  children: List.generate(
-                                      suggestProducts.length, (int index) {
+                                  children: List.generate(artCollections.length,
+                                      (int index) {
                                     return Column(
                                       children: <Widget>[
                                         Row(
                                           children: <Widget>[
                                             Image.asset(
-                                              suggestProducts[index].imageUrl,
+                                              artCollections[index].imageUrl,
                                               fit: BoxFit.fill,
                                             ).box.width(93).height(124).make(),
                                             10.widthBox,
-                                            suggestProducts[index]
+                                            artCollections[index]
                                                 .name
                                                 .text
                                                 .size(14)
@@ -136,27 +136,27 @@ class _ShopScreenState extends State<ShopScreen> {
               ),
             ),
             15.heightBox,
-            GridView.builder(
-              physics: const NeverScrollableScrollPhysics(),
-              itemCount: bestChoiceProducts.length,
-              shrinkWrap: true,
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  mainAxisSpacing: 8,
-                  crossAxisSpacing: 8,
-                  mainAxisExtent: 305),
-              itemBuilder: (context, index) {
-                return ProductCard(
-                        product: bestChoiceProducts[index], isMargin: false)
-                    .box
-                    .make()
-                    .onTap(() {
-                  Get.to(() => ProductDetailScreen(
-                        detail: detailProducts[index],
-                      ));
-                });
-              },
-            ),
+            // GridView.builder(
+            //   physics: const NeverScrollableScrollPhysics(),
+            //   itemCount: bestChoiceProducts.length,
+            //   shrinkWrap: true,
+            //   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            //       crossAxisCount: 2,
+            //       mainAxisSpacing: 8,
+            //       crossAxisSpacing: 8,
+            //       mainAxisExtent: 305),
+            //   itemBuilder: (context, index) {
+            //     return CollectionCard(
+            //             product: bestChoiceProducts[index], isMargin: false)
+            //         .box
+            //         .make()
+            //         .onTap(() {
+            //       Get.to(() => ProductDetailScreen(
+            //             detail: detailProducts[index],
+            //           ));
+            //     });
+            //   },
+            // ),
           ],
         )),
       ),

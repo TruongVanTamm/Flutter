@@ -3,13 +3,45 @@ import 'package:get/get.dart';
 import 'package:megacy_app/constants/constants.dart';
 import 'package:megacy_app/constants/lists.dart';
 import 'package:megacy_app/controllers/home_tab_controller.dart';
-import 'package:megacy_app/widgets_common/product_card_widget.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:megacy_app/views/home_screen/ranking_screen.dart';
+import 'package:megacy_app/widgets_common/popup_menu_prefixIcon_widget.dart';
+import 'package:megacy_app/widgets_common/popup_menu_widget.dart';
+import 'package:megacy_app/widgets_common/collection_card_widget.dart';
 import 'package:flutter/material.dart';
 
-class HomeScreen extends StatelessWidget {
-  HomeScreen({Key? key}) : super(key: key);
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({Key? key}) : super(key: key);
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
   final HomeTabController _tabx = Get.put(HomeTabController());
+  String timeLable = rangeTime[2].name;
+  String timeValue = rangeTime[2].value;
+  String chainCode = listChain[0].value;
+  String blockChainName = listChain[0].name;
+  void _selectTime(value) {
+    setState(() {
+      timeValue = value;
+      timeLable = rangeTime.where((name) => name.value == value).first.name;
+    });
+  }
+
+  void _selectChain(value) {
+    setState(() {
+      chainCode = value;
+      blockChainName =
+          listChain.where((name) => name.value == value).first.name;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Wrap(
@@ -73,133 +105,206 @@ class HomeScreen extends StatelessWidget {
           child: SingleChildScrollView(
             child: Column(
               children: <Widget>[
-                20.heightBox,
+                10.heightBox,
                 ConstrainedBox(
-                    constraints:
-                        BoxConstraints.loose(Size(context.screenWidth, 340.0)),
-                    child: Transform.translate(
-                      offset: const Offset(0, -20),
-                      child: Swiper(
-                        itemCount: homeSliderList.length,
-                        itemBuilder: (itemBuilder, index) {
-                          return Image.asset(
-                            homeSliderList[index],
-                            fit: BoxFit.fill,
-                          )
-                              .box
-                              .withRounded(value: 20.0)
-                              .clip(Clip.antiAlias)
-                              .make();
-                        },
-                      ),
+                    constraints: BoxConstraints.loose(Size(context.screenWidth,
+                        (context.screenWidth - 38) * 8 / 10)),
+                    child: Swiper(
+                      viewportFraction: 0.8,
+                      scale: 0.9,
+                      itemCount: homeSliderList.length,
+                      itemBuilder: (itemBuilder, index) {
+                        return Image.asset(
+                          homeSliderList[index],
+                          fit: BoxFit.fill,
+                        )
+                            .box
+                            .withRounded(value: 20.0)
+                            .clip(Clip.antiAlias)
+                            .make();
+                      },
                     )),
+                10.heightBox,
+                TabBar(
+                    labelPadding: const EdgeInsets.only(left: 0, right: 20),
+                    controller: _tabx.controller,
+                    tabs: _tabx.myTabs,
+                    isScrollable: true,
+                    indicator: const UnderlineTabIndicator(
+                      borderSide: BorderSide.none, // Removes the underline
+                    ),
+                    dividerHeight: 0,
+                    labelColor: black,
+                    unselectedLabelColor: grayColor2,
+                    labelStyle: const TextStyle(
+                        fontSize: 20, fontWeight: FontWeight.bold),
+                    tabAlignment: TabAlignment.start),
+
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
-                    'BST MỚI NHẤT'.text.size(20).make(),
-                    'Xem thêm'.text.size(12).make(),
+                    PopupMenu(
+                      value: timeLable,
+                      onTap: _selectTime,
+                      list: rangeTime,
+                    ),
+                    PopupMenuPrefixIcon(
+                      value: blockChainName,
+                      onTap: _selectChain,
+                      list: listChain,
+                    ),
+                  ],
+                ),
+                20.heightBox,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    "COLECTION"
+                        .text
+                        .size(12)
+                        .color(grayColor2)
+                        .fontWeight(FontWeight.w500)
+                        .make(),
+                    "VOLUME"
+                        .text
+                        .size(12)
+                        .color(grayColor2)
+                        .fontWeight(FontWeight.w500)
+                        .make(),
+                  ],
+                ),
+                10.heightBox,
+                // popupMenuWidget(context: context),
+                SizedBox(
+                  width: context.screenWidth,
+                  height: 340,
+                  child: TabBarView(
+                    controller: _tabx.controller,
+                    children: [
+                      rankingScreen(data: dataTrending),
+                      rankingScreen(data: dataTop),
+                    ],
+                  ),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    "ART"
+                        .text
+                        .size(16)
+                        .color(textColor)
+                        .fontWeight(FontWeight.w700)
+                        .make(),
+                    TextButton(
+                        style: TextButton.styleFrom(
+                            backgroundColor: backgroundPrimaryColor,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(6),
+                            )),
+                        onPressed: () {},
+                        child: 'See all'
+                            .text
+                            .color(textColor)
+                            .fontWeight(FontWeight.w500)
+                            .size(12)
+                            .make())
                   ],
                 ),
                 10.heightBox,
                 RawScrollbar(
-                  crossAxisMargin: -20,
-                  thumbColor: greenColor,
+                  // crossAxisMargin: -20,
+                  // thumbColor: grayColor,
                   radius: const Radius.circular(100),
-                  thickness: 4,
+                  thickness: 0,
                   child: SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
                     child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: List.generate(
-                            btsProducts.length,
-                            (index) =>
-                                ProductCard(product: btsProducts[index]))),
+                            artCollections.length,
+                            (index) => CollectionCard(
+                                collection: artCollections[index]))),
                   ),
                 ),
-                30.heightBox,
-                Align(
-                  alignment: Alignment.topLeft,
-                  child: 'BEST CHOICES'.text.size(20).make(),
-                ),
-                10.heightBox,
-                GridView.builder(
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount: bestChoiceProducts.length,
-                  shrinkWrap: true,
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      mainAxisSpacing: 8,
-                      crossAxisSpacing: 8,
-                      mainAxisExtent: 305),
-                  itemBuilder: (context, index) {
-                    return ProductCard(
-                        product: bestChoiceProducts[index], isMargin: false);
-                  },
-                ),
-                Row(children: <Widget>[
-                  Expanded(
-                      child: Transform.translate(
-                    offset: const Offset(0, 3.0),
-                    child: const Divider(
-                      indent: 100,
-                      color: greyColor,
-                    ),
-                  )),
-                  5.widthBox,
-                  const Icon(
-                    CupertinoIcons.rhombus,
-                    color: greyColor,
-                    size: 20,
-                  ),
-                  5.widthBox,
-                  Expanded(
-                      child: Transform.translate(
-                    offset: const Offset(0, 3.0),
-                    child: const Divider(endIndent: 100, color: greyColor),
-                  )),
-                ]),
-                10.heightBox,
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    const Icon(Icons.local_phone_outlined, color: greyColor),
-                    16.widthBox,
-                    numberPhone.text.color(greyColor).size(16).make()
+                    "Music"
+                        .text
+                        .size(16)
+                        .color(textColor)
+                        .fontWeight(FontWeight.w700)
+                        .make(),
+                    TextButton(
+                        style: TextButton.styleFrom(
+                            backgroundColor: backgroundPrimaryColor,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(6),
+                            )),
+                        onPressed: () {},
+                        child: 'See all'
+                            .text
+                            .color(textColor)
+                            .fontWeight(FontWeight.w500)
+                            .size(12)
+                            .make())
                   ],
                 ),
                 10.heightBox,
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    const Icon(Icons.add_location_outlined, color: greyColor),
-                    16.widthBox,
-                    Expanded(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                RawScrollbar(
+                  // crossAxisMargin: -20,
+                  // thumbColor: grayColor,
+                  radius: const Radius.circular(100),
+                  thickness: 0,
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: List.generate(
-                            addressList.length,
-                            (index) => addressList[index]
-                                .text
-                                .color(greyColor)
-                                .size(16)
-                                .make()),
-                      ),
-                    ),
+                            artCollections.length,
+                            (index) => CollectionCard(
+                                collection: artCollections[index]))),
+                  ),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    "Collectibles"
+                        .text
+                        .size(16)
+                        .color(textColor)
+                        .fontWeight(FontWeight.w700)
+                        .make(),
+                    TextButton(
+                        style: TextButton.styleFrom(
+                            backgroundColor: backgroundPrimaryColor,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(6),
+                            )),
+                        onPressed: () {},
+                        child: 'See all'
+                            .text
+                            .color(textColor)
+                            .fontWeight(FontWeight.w500)
+                            .size(12)
+                            .make())
                   ],
                 ),
-                30.heightBox,
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: List.generate(
-                      socialIconList2.length,
-                      (index) => Container(
-                          padding: const EdgeInsets.all(15),
-                          child: Image.asset(
-                            socialIconList2[index],
-                            width: 24,
-                            height: 24,
-                          ))),
+                10.heightBox,
+                RawScrollbar(
+                  // crossAxisMargin: -20,
+                  // thumbColor: grayColor,
+                  radius: const Radius.circular(100),
+                  thickness: 0,
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: List.generate(
+                            artCollections.length,
+                            (index) => CollectionCard(
+                                collection: artCollections[index]))),
+                  ),
                 ),
                 130.heightBox,
               ],

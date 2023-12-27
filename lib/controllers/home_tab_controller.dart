@@ -4,10 +4,10 @@ import 'package:get/get.dart';
 class HomeTabController extends GetxController
     with GetSingleTickerProviderStateMixin {
   final List<Tab> myTabs = <Tab>[
-    Tab(
-      text: 'LEFT',
+    const Tab(
+      text: 'Trending',
     ),
-    Tab(text: 'RIGHT'),
+    const Tab(text: 'Top'),
   ];
 
   late TabController controller;

@@ -29,7 +29,7 @@ class Home extends StatelessWidget {
       ),
       BottomNavigationBarItem(
           icon: Image.asset(
-            icShop,
+            icSearch,
             width: 24,
             color: unselectedItemColor,
           ),
@@ -78,7 +78,7 @@ class Home extends StatelessWidget {
     ];
 
     var navBody = [
-      HomeScreen(),
+      const HomeScreen(),
       const ShopScreen(),
       const FavoriteScreen(),
       Container(
@@ -95,6 +95,7 @@ class Home extends StatelessWidget {
             child: navBody.elementAt(controller.currentNavIndex.value))),
         bottomNavigationBar: Obx(
           () => BottomNavigationBar(
+            backgroundColor: white,
             currentIndex: controller.currentNavIndex.value,
             unselectedItemColor: unselectedItemColor,
             showSelectedLabels: false,

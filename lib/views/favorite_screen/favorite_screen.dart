@@ -1,6 +1,5 @@
 import 'package:megacy_app/constants/constants.dart';
 import 'package:megacy_app/views/auth_screen/login_screen.dart';
-import 'package:megacy_app/widgets_common/applogo_widget.dart';
 import 'package:megacy_app/widgets_common/commom_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +23,6 @@ class FavoriteScreen extends StatelessWidget {
             children: <Widget>[
               favorite.text.size(16).make(),
               100.heightBox,
-              applogoWidget(logo: icAppLogoBlack).box.size(188, 99).make(),
               Row(children: <Widget>[
                 Expanded(
                     child: Transform.translate(

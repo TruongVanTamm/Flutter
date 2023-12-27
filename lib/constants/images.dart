@@ -1,6 +1,4 @@
 //icons
-const icAppLogoBlack = "assets/icons/mita-logo.png";
-const icAppLogoWhite = "assets/icons/mita-logo-2.png";
 const icAppleLogo = "assets/icons/apple_logo.png";
 const icCart = "assets/icons/cart.png";
 const icCategories = "assets/icons/categories.png";
@@ -18,6 +16,7 @@ const icTwitterLogo = "assets/icons/twitter_logo.png";
 const icTiktok = "assets/icons/tiktok.png";
 const icYoutube = "assets/icons/youtube.png";
 const icInstagram = "assets/icons/instagram.png";
+const icVerify = "assets/icons/verify.png";
 //images
 
 const imgBackground = "assets/icons/bg.png";
@@ -35,3 +34,5 @@ const logoMegacyText2 = "assets/images/logo_megacy_text_2.png";
 const ethreumSymbol = "assets/images/ethreum_symbol.png";
 const bnbSymbol = "assets/images/bnb_symbol.png";
 const polygonSymbol = "assets/images/polygon_symbol.png";
+const trendingItemImage = "assets/images/trending_item_image.png";
+const collectionCardImage = "assets/images/collection_card_image.png";

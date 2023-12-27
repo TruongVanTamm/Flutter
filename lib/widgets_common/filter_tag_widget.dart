@@ -6,7 +6,7 @@ Widget filterTag({onPress, required String? title}) {
     margin: const EdgeInsets.only(right: 10),
     child: ElevatedButton(
       style: ElevatedButton.styleFrom(
-        backgroundColor: grayScale,
+        backgroundColor: grayColor1,
         padding: const EdgeInsets.symmetric(horizontal: 16),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8.0),
